@@ -11,11 +11,14 @@
     "typecheck": "tsc --noEmit",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "test:e2e": "start-server-and-test preview http://localhost:4173 cy:run"
+    "test:e2e": "start-server-and-test preview http://localhost:4173 cy:run",
+    "test:logica": "tsx verificar-logica.ts",
+    "test:perf": "tsx perf/desempenho.ts"
   },
   "devDependencies": {
     "cypress": "^15.18.0",
     "start-server-and-test": "^2.0.8",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "vite": "^8.1.0"
   }
