@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biblioteca — Empréstimo e Devolução</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 760px; margin: 1.5rem auto; color: #222; }
+      fieldset { margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 6px; }
+      legend { font-weight: bold; }
+      [data-cy=mensagem][data-tipo=erro] { color: #c0392b; font-weight: bold; }
+      [data-cy=mensagem][data-tipo=ok] { color: #27ae60; }
+      button { cursor: pointer; }
+      li { margin: 0.4rem 0; }
+      #registro { background: #1e1e1e; color: #0f0; font-family: monospace; font-size: 0.8rem; padding: 0.6rem; border-radius: 6px; max-height: 180px; overflow:auto; }
+      #registro div { white-space: pre-wrap; }
+      .tag { background:#2c3e50; color:#fff; border-radius:4px; padding:0 4px; font-size:.7rem; }
+      .indisp { color:#c0392b; }
+    </style>
+    <script type="module" crossorigin src="/assets/index-nOGq_ezO.js"></script>
+  </head>
+  <body>
+    <h1>📚 Biblioteca — Empréstimo e Devolução</h1>
+
+    <fieldset>
+      <legend>Autenticação (RNF03)</legend>
+      <select data-cy="select-usuario"></select>
+      <button data-cy="btn-login">Login</button>
+      <span>Logado: <strong data-cy="usuario-logado">—</strong></span>
+      <label style="float:right">Data de referência:
+        <input type="date" data-cy="hoje" value="2026-06-24" />
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Pesquisa de livros (RF03)</legend>
+      <input data-cy="busca" placeholder="título ou código" />
+      <button data-cy="btn-buscar">Pesquisar</button>
+      <ul data-cy="resultados"></ul>
+    </fieldset>
+
+    <fieldset>
+      <legend>Meus empréstimos ativos (RF07)</legend>
+      <button data-cy="btn-meus-emprestimos">Atualizar lista</button>
+      <ul data-cy="meus-emprestimos"></ul>
+    </fieldset>
+
+    <fieldset>
+      <legend>Relatórios (RF10)</legend>
+      <button data-cy="btn-relatorio">Gerar relatório</button>
+      <pre data-cy="relatorio"></pre>
+    </fieldset>
+
+    <p data-cy="mensagem"></p>
+
+    <fieldset>
+      <legend>Registro de operações — o que o sistema está fazendo</legend>
+      <div id="registro" data-cy="registro"></div>
+    </fieldset>
+
+  </body>
+</html>

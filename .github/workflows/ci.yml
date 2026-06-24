@@ -1,0 +1,55 @@
+name: CI/CD - Testes de Lançamento
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  # ----------------------------------------------------------------
+  # JOB 1: Testes de lançamento (release testing)
+  # ----------------------------------------------------------------
+  testes-de-lancamento:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Verificação de tipos (TypeScript)
+        run: npm run typecheck
+
+      - name: Build de produção
+        run: npm run build
+
+      - name: Testes de lógica de domínio (RF/RNF)
+        run: node --experimental-strip-types verificar-logica.ts
+
+      - name: Testes de desempenho/escalabilidade (RNF01/04/07)
+        run: node --experimental-strip-types perf/desempenho.ts
+
+      - name: Testes de lançamento — Cypress E2E (cenários + requisitos)
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: npm run preview
+          wait-on: "http://localhost:4173"
+
+  # ----------------------------------------------------------------
+  # JOB 2: Deploy — só roda se TODOS os testes acima passarem (gate)
+  # ----------------------------------------------------------------
+  deploy:
+    needs: testes-de-lancamento
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publicar release
+        run: |
+          echo "✅ Testes de lançamento aprovados."
+          echo "🚀 Publicando a versão em produção..."

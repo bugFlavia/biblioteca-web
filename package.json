@@ -1,0 +1,22 @@
+{
+  "name": "biblioteca-web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Exemplo de testes de lançamento (release testing) com Cypress + TypeScript e CI/CD",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview --port 4173",
+    "typecheck": "tsc --noEmit",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test:e2e": "start-server-and-test preview http://localhost:4173 cy:run"
+  },
+  "devDependencies": {
+    "cypress": "^15.18.0",
+    "start-server-and-test": "^2.0.8",
+    "typescript": "^5.6.3",
+    "vite": "^8.1.0"
+  }
+}
